@@ -54,6 +54,41 @@ var Player = function() {
     this.height = 76;
 };
 
+//updates the player position
+Player.prototype.update = function(dt) {
+    this.x * (dt);
+    this.y * (dt);
+};
+
+//draw the enemy on the canvas
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+//this method allows the player to know his next direction based on an input
+Player.prototype.handleInput = function(direction) {
+    if(direction == 'up'){
+       this.y += -(this.speed);
+    }else if(direction == 'down'){
+       this.y += this.speed;
+    }else if(direction == 'right'){
+       this.x += this.speed;
+    }else if(direction == 'left'){
+       this.x += -(this.speed);
+    }
+
+    if(direction == 'right' && this.x == 420){
+        this.x -= (this.speed);
+    }else if(direction == 'left' && this.x == -20){
+        this.x -= -(this.speed);
+    }else if(direction == 'down' && this.y > 460){
+        this.y -= this.speed;
+    }else if(direction == 'up' && this.y == -20){
+        this.x = 200;
+        this.y = 460;
+    }
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player

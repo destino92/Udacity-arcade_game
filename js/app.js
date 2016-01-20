@@ -21,6 +21,11 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += this.speed * dt;
 
+    //if the player collide with an enemy reset is position
+    if(checkCollision(player,this)){
+        player.reset();
+    }
+
     //call the reset method if the enemy get out of the canvas on the right side
     if(this.x > 500){
         this.reset();

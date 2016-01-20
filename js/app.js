@@ -43,7 +43,7 @@ Enemy.prototype.reset = function() {
     this.x = 20;
     this.y = yPosition;
     this.speed += 5;
-    //if the value of count is 5 create a random enemy
+    //create a random enemy after enemie reset method as been called 5 times
     if(count == 5){
         createRandomEnemies();
     }
@@ -60,6 +60,28 @@ var createRandomEnemies = function() {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+//rock class
+var Rock = function(x,y){
+    this.sprite = 'images/Rock.png';
+    this.x = x;
+    this.y = y;
+    this.speed = 0;
+    this.width = 20;
+    this.height = 20;
+};
+
+Rock.prototype.update = function(dt) {
+    this.y += this.speed * dt;
+
+    if(checkCollision(player,this)){
+        player.reset();
+    }
+};
+
+Rock.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 

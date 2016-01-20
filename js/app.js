@@ -105,6 +105,17 @@ var allEnemies = [enemy1,enemy2,enemy3];
 // Place the player object in a variable called player
 var player = new Player();
 
+//check the collision between two rectangles
+var checkCollision = function(rect1, rect2) {
+    if (rect1.x <= rect2.x + rect2.width &&
+        rect1.x + rect1.width >= rect2.x &&
+        rect1.y <= rect2.y + rect2.height &&
+        rect1.height + rect1.y >= rect2.y) {
+        return true;
+    }else{
+        return false;
+    }
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

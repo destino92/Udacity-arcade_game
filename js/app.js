@@ -88,6 +88,12 @@ Player.prototype.handleInput = function(direction) {
     }
 };
 
+//allows the player to go back to his initial position
+Player.prototype.reset = function() {
+        this.x = 200;
+        this.y = 460;
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var enemy1 = new Enemy(20,145,60);

@@ -73,14 +73,17 @@ var Rock = function(x,y){
     this.height = 20;
 };
 
+// Update the rock's position
 Rock.prototype.update = function(dt) {
     this.y += this.speed * dt;
 
+    //if the player collide with a rock reset it's positon
     if(checkCollision(player,this)){
         player.reset();
     }
 };
 
+// Draw the rock on the screen
 Rock.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -145,6 +148,13 @@ var enemy2 = new Enemy(20,230,30);
 var enemy3 = new Enemy(20,315,20);
 
 var allEnemies = [enemy1,enemy2,enemy3];
+
+//instantiate the Rocks
+var rock1 = new Rock(1,60);
+var rock2 = new Rock(204,60);
+var rock3 = new Rock(404,60);
+
+var allRocks = [rock1,rock2,rock3];
 
 // Place the player object in a variable called player
 var player = new Player();

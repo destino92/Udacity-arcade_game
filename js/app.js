@@ -184,6 +184,7 @@ var allRocks = [rock1,rock2,rock3];
 //instantiate the collectables
 var star1 = new Collectable(105, 70, 'images/Star.png');
 var star2 = new Collectable(305, 70, 'images/Star.png');
+var slowingGem = new Collectable(404, 128, 'images/Selector.png');
 
 var allCollectables = [star1, star2];
 

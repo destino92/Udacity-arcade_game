@@ -23,7 +23,6 @@ Enemy.prototype.update = function(dt) {
 
     //call the reset method if the enemy get out of the canvas on the right side
     if(this.x > 500){
-        count += 1;
         this.reset();
     }
 };

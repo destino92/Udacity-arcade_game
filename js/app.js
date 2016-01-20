@@ -58,6 +58,10 @@ var createRandomEnemies = function() {
     count = 0;
 
     if(allEnemies.length >= 5 && allCollectables.length == 2){
+        //if there are more that 5 enemies and the slowingGem
+        //is not included in the allCollectables array
+        //add it to the allCollectables array so it can now be 
+        //rendered and updated
         allCollectables.push(slowingGem);
     }
 }
@@ -107,8 +111,18 @@ Collectable.prototype.update = function(dt) {
     this.y += this.speed * dt;
 
     if(checkCollision(player,this)){
-        player.reset();
-        OnCollection();
+        if(this === slowingGem){
+            //if the collecable is the slowingGem
+            //remove if from the allCollectables array
+            //reset the player position and call dieAndSlowEnemy()
+            allCollectables.pop();
+            player.reset();
+            dieAndSlowEnemy();
+        }else{
+            //reset the player position and call OnCollection
+            player.reset();
+            OnCollection();
+        }
     }
 };
 

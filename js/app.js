@@ -1,3 +1,5 @@
+var count = 0;
+
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
     // Variables applied to each of our instances go here,
@@ -26,8 +28,10 @@ Enemy.prototype.update = function(dt) {
         player.reset();
     }
 
-    //call the reset method if the enemy get out of the canvas on the right side
+    //call the reset method if the enemy get out of 
+    //the canvas on the right side and add 1 to count
     if(this.x > 500){
+        count += 1;
         this.reset();
     }
 };
@@ -39,7 +43,20 @@ Enemy.prototype.reset = function() {
     this.x = 20;
     this.y = yPosition;
     this.speed += 5;
+    //if the value of count is 5 create a random enemy
+    if(count == 5){
+        createRandomEnemies();
+    }
 };
+
+//create random enemies
+var createRandomEnemies = function() {
+    var yArray = [145,230,315]
+    var yDirection = yArray[Math.floor(Math.random()*yArray.length)];
+    var speed = 20 + 20*Math.floor(Math.random()*4);
+    allEnemies.push(new Enemy(20, yDirection, speed));
+    count = 0;
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {

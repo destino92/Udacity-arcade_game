@@ -98,6 +98,10 @@ var Engine = (function(global) {
             rock.update(dt);
         });
 
+        allCollectables.forEach(function(collectable){
+            collectable.update(dt);
+        });
+
         player.update();
     }
 
@@ -158,6 +162,10 @@ var Engine = (function(global) {
 
         allRocks.forEach(function(rock) {
             rock.render();
+        });
+
+        allCollectables.forEach(function(collectable){
+            collectable.render();
         });
 
         player.render();

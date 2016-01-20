@@ -90,19 +90,28 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
-            enemy.update(dt);
-        });
+        switch(gameState){
+            case 'void':
+                player.update();
+                break;
+            case 'game':
+                allEnemies.forEach(function(enemy) {
+                    enemy.update(dt);
+                });
 
-        allRocks.forEach(function(rock) {
-            rock.update(dt);
-        });
+                allRocks.forEach(function(rock) {
+                    rock.update(dt);
+                });
 
-        allCollectables.forEach(function(collectable){
-            collectable.update(dt);
-        });
+                allCollectables.forEach(function(collactable){
+                    collactable.update(dt);
+                });
 
-        player.update();
+                player.update();
+                break;
+            case 'game-over':
+                break; 
+        }
     }
 
     /* This function initially draws the "game level", it will then call
@@ -156,19 +165,74 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allRocks.forEach(function(rock) {
-            rock.render();
-        });
+        switch(gameState){
+            case 'void':
+                ctx.font = "70px Chewy";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Fluffy pancakes", canvas.width/2, canvas.height/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 4;
+                ctx.textAlign = "center";
+                ctx.strokeText("Fluffy pancakes", canvas.width/2, canvas.height/2);
+                player.render();
+                break;
+            case 'game':
+                allRocks.forEach(function(rock) {
+                    rock.render();
+                });
 
-        allCollectables.forEach(function(collectable){
-            collectable.render();
-        }); 
+                allCollectables.forEach(function(collactable){
+                    collactable.render();
+                });
 
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
-        });
+                allEnemies.forEach(function(enemy) {
+                    enemy.render();
+                });
 
-        player.render();
+                player.render();
+                break;
+            case 'win':
+                ctx.font = "60px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Congratulations", canvas.width/2, canvas.height/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 3;
+                ctx.textAlign = "center";
+                ctx.strokeText("Congratulations", canvas.width/2, canvas.height/2);
+                
+                ctx.font = "30px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Now go and make those pancakes", canvas.width/2, (canvas.height+150)/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 1;
+                ctx.textAlign = "center";
+                ctx.strokeText("Now go and make those pancakes", canvas.width/2, (canvas.height+150)/2);
+                break;
+            case 'game-over':
+                allRocks.forEach(function(rock) {
+                    rock.render();
+                });
+                allCollectables.forEach(function(collactable){
+                    collactable.render();
+                });
+                player.render();
+                ctx.font = "90px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 4;
+                ctx.textAlign = "center";
+                ctx.strokeText("Game Over", canvas.width/2, canvas.height/2);
+
+                ctx.font = "35px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Press Space Key To restart", canvas.width/2, (canvas.height+100)/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 2;
+                ctx.textAlign = "center";
+                ctx.strokeText("Press Space Key To restart", canvas.width/2, (canvas.height+100)/2);
+                break; 
+        }
     }
 
     /* This function does nothing but it could have been a good place to

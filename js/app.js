@@ -101,6 +101,11 @@ var Collectable = function(x,y,sprite) {
 //update the collectable position
 Collectable.prototype.update = function(dt) {
     this.y += this.speed * dt;
+
+    if(checkCollision(player,this)){
+        player.reset();
+        OnCollection();
+    }
 };
 
 //Draw the collectable on the screen

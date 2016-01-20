@@ -56,6 +56,10 @@ var createRandomEnemies = function() {
     var speed = 20 + 20*Math.floor(Math.random()*4);
     allEnemies.push(new Enemy(20, yDirection, speed));
     count = 0;
+
+    if(allEnemies.length >= 5 && allCollectables.length == 2){
+        allCollectables.push(slowingGem);
+    }
 }
 
 // Draw the enemy on the screen, required method for game

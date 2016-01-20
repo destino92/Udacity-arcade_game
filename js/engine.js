@@ -156,16 +156,16 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
-        });
-
         allRocks.forEach(function(rock) {
             rock.render();
         });
 
         allCollectables.forEach(function(collectable){
             collectable.render();
+        }); 
+
+        allEnemies.forEach(function(enemy) {
+            enemy.render();
         });
 
         player.render();

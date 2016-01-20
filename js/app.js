@@ -1,4 +1,5 @@
-var count = 0;
+var gameState = 'void';
+    count = 0;
 
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
@@ -68,7 +69,10 @@ var createRandomEnemies = function() {
     allEnemies.push(new Enemy(20, yDirection, speed));
     count = 0;
 
-    if(allEnemies.length >= 5 && allCollectables.length == 2){
+    if(allEnemies.length === 10){
+        gameState = 'game-over';
+        items = ['#milk','#vinegar','#baking-soda','#salt','#flour','#egg','#sugar','#baking-powder','#butter','#cooking-spray','#step1','#step2','#step3'];
+    }else if(allEnemies.length >= 5 && allCollectables.length == 2){
         //if there are more that 5 enemies and the slowingGem
         //is not included in the allCollectables array
         //add it to the allCollectables array so it can now be 
@@ -232,6 +236,19 @@ var checkCollision = function(rect1, rect2) {
     }
 }
 
+var gameReset = function(){
+    if(allCollectables.length === 3){
+        allCollectables.pop();
+    }
+    player.speed = 20;
+    allEnemies = [];
+    enemy1 = new Enemy(20,145,80);
+    enemy2 = new Enemy(20,230,30);
+    enemy3 = new Enemy(20,315,20);
+    allEnemies = [enemy1,enemy2,enemy3];
+    $('.list li').css('display', 'none');
+}
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -241,6 +258,15 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
+
+    if(gameState === 'void' && allowedKeys[e.keyCode] === 'space'){
+        gameState = 'game';
+        player.reset();
+    }else if(gameState === 'game-over' && allowedKeys[e.keyCode] === 'space'){
+        gameState = 'game';
+        gameReset();
+        player.reset();
+    }
 
     player.handleInput(allowedKeys[e.keyCode]);
 });

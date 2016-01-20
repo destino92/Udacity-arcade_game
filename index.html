@@ -60,11 +60,14 @@
         	//if there are element in the items array display
         	//them then remove it from the array
         	if(items.length > 0){
-        		var element = items[Math.floor(Math.random()*items.length)];
-        		var i = items.indexOf(element);
+                var element = items[Math.floor(Math.random()*items.length)];
+                var i = items.indexOf(element);
                 $(element).show();
                 items.splice(i,1);
-        	}
+                console.log(items);
+            }else{
+                gameState = 'win';
+            }
         }   	
     </script>
 

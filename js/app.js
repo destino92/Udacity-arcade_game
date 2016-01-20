@@ -88,6 +88,16 @@ Rock.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//collectable class
+var Collectable = function(x,y,sprite) {
+    this.sprite = sprite;
+    this.x = x;
+    this.y = y;
+    this.speed = 0;
+    this.width = 50;
+    this.height = -10;
+};
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.

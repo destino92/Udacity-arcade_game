@@ -1,3 +1,46 @@
 body {
-    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
 }
+
+h3 {
+	text-align: center;
+	font-weight: 300;
+}
+
+#ingredients {
+	background-color: #19B3D9;
+	width: 260px;
+	border-radius: 10px;
+	color: white;
+	padding-bottom: 20px;
+	display: inline-block;
+}
+
+#directions {
+	background-color: #BF55EC;
+	width: 285px;
+	border-radius: 10px;
+	color: white;
+	padding-bottom: 20px;
+	display: inline-block;
+	padding-right: 30px; 
+}
+
+.list {
+	font-weight: 400;
+}
+
+.list li {
+	margin-bottom: 10px;
+	display: none;
+}
+
+.how-to-play {
+	border: 4px solid #E4F1FE;
+}
+
+canvas {
+	font-family: 'Play';
+}
+
+

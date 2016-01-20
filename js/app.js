@@ -49,6 +49,17 @@ Enemy.prototype.reset = function() {
     }
 };
 
+//remove/kill two enemy from the array
+//reduce the speed of the remaining enemies
+//and boost the player speed
+var dieAndSlowEnemy = function() {
+    allEnemies.splice(3,2);
+    allEnemies.forEach(function(enemy){
+        enemy.speed -= 10;
+    });
+    player.speed += 10;
+};
+
 //create random enemies
 var createRandomEnemies = function() {
     var yArray = [145,230,315]

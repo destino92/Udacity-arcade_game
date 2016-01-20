@@ -19,6 +19,22 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += this.speed * dt;
+
+    //call the reset method if the enemy get out of the canvas on the right side
+    if(this.x > 500){
+        count += 1;
+        this.reset();
+    }
+};
+
+//reset the enemy position and add some speed to the enemy
+Enemy.prototype.reset = function() {
+    var position = [145,230,315];
+    var yPosition = position[Math.floor(Math.random()*position.length)];
+    this.x = 20;
+    this.y = yPosition;
+    this.speed += 5;
 };
 
 // Draw the enemy on the screen, required method for game

@@ -53,7 +53,19 @@
     <script src="js/engine.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
-        var items = ['#milk','#vinegar','#baking-soda','#salt','#flour','#egg','#sugar','#baking-powder','#butter','#cooking-spray','#step1','#step2','#step3'];   	
+    	//all li items are in the array in a css selector form 
+        var items = ['#milk','#vinegar','#baking-soda','#salt','#flour','#egg','#sugar','#baking-powder','#butter','#cooking-spray','#step1','#step2','#step3'];
+
+        var Oncollection = function(){
+        	//if there are element in the items array display
+        	//them then remove it from the array
+        	if(items.length > 0){
+        		var element = items[Math.floor(Math.random()*items.length)];
+        		var i = items.indexOf(element);
+                $(element).show();
+                items.splice(i,1);
+        	}
+        }   	
     </script>
 
 </body>

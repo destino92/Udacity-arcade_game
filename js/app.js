@@ -98,6 +98,16 @@ var Collectable = function(x,y,sprite) {
     this.height = -10;
 };
 
+//update the collectable position
+Collectable.prototype.update = function(dt) {
+    this.y += this.speed * dt;
+};
+
+//Draw the collectable on the screen
+Collectable.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -165,6 +175,12 @@ var rock2 = new Rock(204,60);
 var rock3 = new Rock(404,60);
 
 var allRocks = [rock1,rock2,rock3];
+
+//instantiate the collectables
+var star1 = new Collectable(105, 70, 'images/Star.png');
+var star2 = new Collectable(305, 70, 'images/Star.png');
+
+var allCollectables = [star1, star2];
 
 // Place the player object in a variable called player
 var player = new Player();

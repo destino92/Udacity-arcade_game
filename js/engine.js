@@ -13,7 +13,6 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -90,27 +89,27 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        switch(gameState){
+        switch (gameState) {
             case 'void':
-                player.update();
+                //player.update(dt);
                 break;
             case 'game':
                 allEnemies.forEach(function(enemy) {
-                    enemy.update(dt);
+                    enemy.update(dt, player);
                 });
 
                 allRocks.forEach(function(rock) {
-                    rock.update(dt);
+                    rock.update(dt, player);
                 });
 
-                allCollectables.forEach(function(collactable){
-                    collactable.update(dt);
+                allCollectables.forEach(function(collactable) {
+                    collactable.update(dt, player);
                 });
 
-                player.update();
+                //player.update(dt);
                 break;
             case 'game-over':
-                break; 
+                break;
         }
     }
 
@@ -126,12 +125,12 @@ var Engine = (function(global) {
          */
         var rowImages = [
                 'images/water-block.png',
-                'images/grass-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/dirt-block.png',   // Row 1 of 2 of grass
-                'images/dirt-block.png'    // Row 2 of 2 of grass
+                'images/grass-block.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/dirt-block.png', // Row 1 of 2 of grass
+                'images/dirt-block.png' // Row 2 of 2 of grass
             ],
             numRows = 7,
             numCols = 5,
@@ -165,16 +164,16 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        switch(gameState){
+        switch (gameState) {
             case 'void':
                 //title text
                 ctx.font = "70px Chewy";
                 ctx.fillStyle = "#faaa09";
-                ctx.fillText("Fluffy pancakes", canvas.width/2, canvas.height/2);
+                ctx.fillText("Fluffy pancakes", canvas.width / 2, canvas.height / 2);
                 ctx.strokeStyle = '#412937';
                 ctx.lineWidth = 4;
                 ctx.textAlign = "center";
-                ctx.strokeText("Fluffy pancakes", canvas.width/2, canvas.height/2);
+                ctx.strokeText("Fluffy pancakes", canvas.width / 2, canvas.height / 2);
 
                 player.render();
                 break;
@@ -183,7 +182,7 @@ var Engine = (function(global) {
                     rock.render();
                 });
 
-                allCollectables.forEach(function(collactable){
+                allCollectables.forEach(function(collactable) {
                     collactable.render();
                 });
 
@@ -197,25 +196,25 @@ var Engine = (function(global) {
                 //Ui text for winning
                 ctx.font = "60px Play";
                 ctx.fillStyle = "#faaa09";
-                ctx.fillText("Congratulations", canvas.width/2, canvas.height/2);
+                ctx.fillText("Congratulations", canvas.width / 2, canvas.height / 2);
                 ctx.strokeStyle = '#412937';
                 ctx.lineWidth = 3;
                 ctx.textAlign = "center";
-                ctx.strokeText("Congratulations", canvas.width/2, canvas.height/2);
-                
+                ctx.strokeText("Congratulations", canvas.width / 2, canvas.height / 2);
+
                 ctx.font = "30px Play";
                 ctx.fillStyle = "#faaa09";
-                ctx.fillText("Now go and make those pancakes", canvas.width/2, (canvas.height+150)/2);
+                ctx.fillText("Now go and make those pancakes", canvas.width / 2, (canvas.height + 150) / 2);
                 ctx.strokeStyle = '#412937';
                 ctx.lineWidth = 1;
                 ctx.textAlign = "center";
-                ctx.strokeText("Now go and make those pancakes", canvas.width/2, (canvas.height+150)/2);
+                ctx.strokeText("Now go and make those pancakes", canvas.width / 2, (canvas.height + 150) / 2);
                 break;
             case 'game-over':
                 allRocks.forEach(function(rock) {
                     rock.render();
                 });
-                allCollectables.forEach(function(collactable){
+                allCollectables.forEach(function(collactable) {
                     collactable.render();
                 });
                 player.render();
@@ -223,20 +222,20 @@ var Engine = (function(global) {
                 //UI for GameOver
                 ctx.font = "90px Play";
                 ctx.fillStyle = "#faaa09";
-                ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
+                ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
                 ctx.strokeStyle = '#412937';
                 ctx.lineWidth = 4;
                 ctx.textAlign = "center";
-                ctx.strokeText("Game Over", canvas.width/2, canvas.height/2);
+                ctx.strokeText("Game Over", canvas.width / 2, canvas.height / 2);
 
                 ctx.font = "35px Play";
                 ctx.fillStyle = "#faaa09";
-                ctx.fillText("Press Space Key To restart", canvas.width/2, (canvas.height+100)/2);
+                ctx.fillText("Press Space Key To restart", canvas.width / 2, (canvas.height + 100) / 2);
                 ctx.strokeStyle = '#412937';
                 ctx.lineWidth = 2;
                 ctx.textAlign = "center";
-                ctx.strokeText("Press Space Key To restart", canvas.width/2, (canvas.height+100)/2);
-                break; 
+                ctx.strokeText("Press Space Key To restart", canvas.width / 2, (canvas.height + 100) / 2);
+                break;
         }
     }
 

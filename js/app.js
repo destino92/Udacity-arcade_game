@@ -1,8 +1,10 @@
+'use strict';
+
 var gameState = 'void',
     count = 0;
 
 // Enemies our player must avoid
-var Enemy = function(x,y,speed) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -18,20 +20,20 @@ var Enemy = function(x,y,speed) {
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
+Enemy.prototype.update = function(dt, player) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
 
     //if the player collide with an enemy reset is position
-    if(checkCollision(player,this)){
+    if (checkCollision(player, this)) {
         player.reset();
     }
 
     //call the reset method if the enemy get out of 
     //the canvas on the right side and add 1 to count
-    if(this.x > 500){
+    if (this.x > 500) {
         count += 1;
         this.reset();
     }
@@ -39,13 +41,13 @@ Enemy.prototype.update = function(dt) {
 
 //reset the enemy position and add some speed to the enemy
 Enemy.prototype.reset = function() {
-    var position = [145,230,315];
-    var yPosition = position[Math.floor(Math.random()*position.length)];
+    var position = [145, 230, 315];
+    var yPosition = position[Math.floor(Math.random() * position.length)];
     this.x = 20;
     this.y = yPosition;
     this.speed += 5;
     //create a random enemy after enemie reset method as been called 5 times
-    if(count == 5){
+    if (count === 5) {
         createRandomEnemies();
     }
 };
@@ -54,8 +56,8 @@ Enemy.prototype.reset = function() {
 //reduce the speed of the remaining enemies
 //and boost the player speed
 var dieAndSlowEnemy = function() {
-    allEnemies.splice(3,2);
-    allEnemies.forEach(function(enemy){
+    allEnemies.splice(3, 2);
+    allEnemies.forEach(function(enemy) {
         enemy.speed -= 10;
     });
     player.speed += 10;
@@ -63,16 +65,16 @@ var dieAndSlowEnemy = function() {
 
 //create random enemies
 var createRandomEnemies = function() {
-    var yArray = [145,230,315];
-    var yDirection = yArray[Math.floor(Math.random()*yArray.length)];
-    var speed = 20 + 20*Math.floor(Math.random()*4);
+    var yArray = [145, 230, 315];
+    var yDirection = yArray[Math.floor(Math.random() * yArray.length)];
+    var speed = 20 + 20 * Math.floor(Math.random() * 4);
     allEnemies.push(new Enemy(20, yDirection, speed));
     count = 0;
 
-    if(allEnemies.length === 10){
+    if (allEnemies.length === 10) {
         gameState = 'game-over';
-        items = ['#milk','#vinegar','#baking-soda','#salt','#flour','#egg','#sugar','#baking-powder','#butter','#cooking-spray','#step1','#step2','#step3'];
-    }else if(allEnemies.length >= 5 && allCollectables.length == 2){
+        items = ['#milk', '#vinegar', '#baking-soda', '#salt', '#flour', '#egg', '#sugar', '#baking-powder', '#butter', '#cooking-spray', '#step1', '#step2', '#step3'];
+    } else if (allEnemies.length >= 5 && allCollectables.length == 2) {
         //if there are more that 5 enemies and the slowingGem
         //is not included in the allCollectables array
         //add it to the allCollectables array so it can now be 
@@ -87,7 +89,7 @@ Enemy.prototype.render = function() {
 };
 
 //rock class
-var Rock = function(x,y){
+var Rock = function(x, y) {
     this.sprite = 'images/Rock.png';
     this.x = x;
     this.y = y;
@@ -97,11 +99,11 @@ var Rock = function(x,y){
 };
 
 // Update the rock's position
-Rock.prototype.update = function(dt) {
+Rock.prototype.update = function(dt, player) {
     this.y += this.speed * dt;
 
     //if the player collide with a rock reset it's positon
-    if(checkCollision(player,this)){
+    if (checkCollision(player, this)) {
         player.reset();
     }
 };
@@ -112,7 +114,7 @@ Rock.prototype.render = function() {
 };
 
 //collectable class
-var Collectable = function(x,y,sprite) {
+var Collectable = function(x, y, sprite) {
     this.sprite = sprite;
     this.x = x;
     this.y = y;
@@ -122,18 +124,18 @@ var Collectable = function(x,y,sprite) {
 };
 
 //update the collectable position
-Collectable.prototype.update = function(dt) {
+Collectable.prototype.update = function(dt, player) {
     this.y += this.speed * dt;
 
-    if(checkCollision(player,this)){
-        if(this === slowingGem){
+    if (checkCollision(player, this)) {
+        if (this === slowingGem) {
             //if the collecable is the slowingGem
             //remove if from the allCollectables array
             //reset the player position and call dieAndSlowEnemy()
             allCollectables.pop();
             player.reset();
             dieAndSlowEnemy();
-        }else{
+        } else {
             //reset the player position and call OnCollection
             player.reset();
             OnCollection();
@@ -153,15 +155,9 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y = 460;
-    this.speed = 20;
+    this.speed = 40;
     this.width = 70;
     this.height = 76;
-};
-
-//updates the player position
-Player.prototype.update = function(dt) {
-    this.x *= (dt);
-    this.y *= (dt);
 };
 
 //draw the enemy on the canvas
@@ -171,23 +167,23 @@ Player.prototype.render = function() {
 
 //this method allows the player to know his next direction based on an input
 Player.prototype.handleInput = function(direction) {
-    if(direction == 'up'){
-       this.y += -(this.speed);
-    }else if(direction == 'down'){
-       this.y += this.speed;
-    }else if(direction == 'right'){
-       this.x += this.speed;
-    }else if(direction == 'left'){
-       this.x += -(this.speed);
+    if (direction == 'up') {
+        this.y += -(this.speed);
+    } else if (direction == 'down') {
+        this.y += this.speed;
+    } else if (direction == 'right') {
+        this.x += this.speed;
+    } else if (direction == 'left') {
+        this.x += -(this.speed);
     }
 
-    if(direction == 'right' && this.x == 420){
-        this.x -= (this.speed);
-    }else if(direction == 'left' && this.x == -20){
-        this.x -= -(this.speed);
-    }else if(direction == 'down' && this.y > 460){
+    if (direction == 'right' && this.x >= 420) {
+        this.x = 410;
+    } else if (direction == 'left' && this.x <= -20) {
+        this.x = -10;
+    } else if (direction == 'down' && this.y > 460) {
         this.y -= this.speed;
-    }else if(direction == 'up' && this.y == -20){
+    } else if (direction == 'up' && this.y === -20) {
         this.x = 200;
         this.y = 460;
     }
@@ -195,24 +191,24 @@ Player.prototype.handleInput = function(direction) {
 
 //allows the player to go back to his initial position
 Player.prototype.reset = function() {
-        this.x = 200;
-        this.y = 460;
+    this.x = 200;
+    this.y = 460;
 };
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var enemy1 = new Enemy(20,145,60);
-var enemy2 = new Enemy(20,230,30);
-var enemy3 = new Enemy(20,315,20);
+var enemy1 = new Enemy(20, 145, 60);
+var enemy2 = new Enemy(20, 230, 30);
+var enemy3 = new Enemy(20, 315, 20);
 
-var allEnemies = [enemy1,enemy2,enemy3];
+var allEnemies = [enemy1, enemy2, enemy3];
 
 //instantiate the Rocks
-var rock1 = new Rock(1,60);
-var rock2 = new Rock(204,60);
-var rock3 = new Rock(404,60);
+var rock1 = new Rock(1, 60);
+var rock2 = new Rock(204, 60);
+var rock3 = new Rock(404, 60);
 
-var allRocks = [rock1,rock2,rock3];
+var allRocks = [rock1, rock2, rock3];
 
 //instantiate the collectables
 var star1 = new Collectable(105, 70, 'images/Star.png');
@@ -231,21 +227,21 @@ var checkCollision = function(rect1, rect2) {
         rect1.y <= rect2.y + rect2.height &&
         rect1.height + rect1.y >= rect2.y) {
         return true;
-    }else{
+    } else {
         return false;
     }
 };
 
-var gameReset = function(){
-    if(allCollectables.length === 3){
+var gameReset = function() {
+    if (allCollectables.length === 3) {
         allCollectables.pop();
     }
-    player.speed = 20;
+    player.speed = 40;
     allEnemies = [];
-    enemy1 = new Enemy(20,145,80);
-    enemy2 = new Enemy(20,230,30);
-    enemy3 = new Enemy(20,315,20);
-    allEnemies = [enemy1,enemy2,enemy3];
+    enemy1 = new Enemy(20, 145, 80);
+    enemy2 = new Enemy(20, 230, 30);
+    enemy3 = new Enemy(20, 315, 20);
+    allEnemies = [enemy1, enemy2, enemy3];
     $('.list li').css('display', 'none');
 };
 
@@ -260,10 +256,10 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    if(gameState === 'void' && allowedKeys[e.keyCode] === 'space'){
+    if (gameState === 'void' && allowedKeys[e.keyCode] === 'space') {
         gameState = 'game';
         player.reset();
-    }else if(gameState === 'game-over' && allowedKeys[e.keyCode] === 'space'){
+    } else if (gameState === 'game-over' && allowedKeys[e.keyCode] === 'space') {
         gameState = 'game';
         gameReset();
         player.reset();

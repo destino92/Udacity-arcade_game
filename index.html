@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
@@ -13,43 +14,44 @@
 
     <link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
 </head>
+
 <body>
-	<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-6">
-            <div id="ingredients">
-                <h3>Ingredients List</h3>
-                <ul class="list">
-                    <li id="milk">3/4 cup milk</li>
-                    <li id="vinegar">2 tablespoons white vinegar</li>
-                    <li id="baking-soda">1/2 teaspoon baking soda</li>
-                    <li id="salt">1/2 teaspoon salt</li>
-                    <li id="flour">1 cup all-purpose flour</li>
-                    <li id="egg">1 egg</li>
-                    <li id="sugar">2 tablespoons white sugar</li>
-                    <li id="baking-powder">1 teaspoon baking powder</li>
-                    <li id="butter">2 tablespoons butter melted</li>
-                    <li id="cooking-spray">cooking spray</li>
-                </ul>
+                <div id="ingredients">
+                    <h3>Ingredients List</h3>
+                    <ul class="list">
+                        <li id="milk">3/4 cup milk</li>
+                        <li id="vinegar">2 tablespoons white vinegar</li>
+                        <li id="baking-soda">1/2 teaspoon baking soda</li>
+                        <li id="salt">1/2 teaspoon salt</li>
+                        <li id="flour">1 cup all-purpose flour</li>
+                        <li id="egg">1 egg</li>
+                        <li id="sugar">2 tablespoons white sugar</li>
+                        <li id="baking-powder">1 teaspoon baking powder</li>
+                        <li id="butter">2 tablespoons butter melted</li>
+                        <li id="cooking-spray">cooking spray</li>
+                    </ul>
+                </div>
+                <div id="directions">
+                    <h3>Directions</h3>
+                    <ul class="list">
+                        <li id="step1">Combine milk with vinegar in a medium bowl and set aside for 5 minutes to "sour".</li>
+                        <li id="step2">Combine flour, sugar, baking powder, baking soda, and salt in a large mixing bowl. Whisk egg and butter into "soured" milk. Pour the flour mixture into the wet ingredients and whisk until lumps are gone.</li>
+                        <li id="step3">Heat a large skillet over medium heat, and coat with cooking spray. Pour 1/4 cupfuls of batter onto the skillet, and cook until bubbles appear on the surface. Flip with a spatula, and cook until browned on the other side.</li>
+                    </ul>
+                </div>
+                <div class="how-to-play">
+                    <h3>Game Directions</h3>
+                    <ul>
+                        <li>use your keyboard direction to move around <img src="images/direction.jpg" style="width:80px;height:80px">.</li>
+                        <li>Collect the <img src="images/star.png" style="width:50px;height:80px"> to discover the ingredients and directions to cook fluffy pancakes.</li>
+                        <li>When the <img src="images/Selector.png" style="width:50px;height:80px"> appears collect it to kill some bugs and slow the other ones.</li>
+                        <li>To start Playing the game press the space key on your keyboard.</li>
+                    </ul>
+                </div>
             </div>
-            <div id="directions">
-                <h3>Directions</h3>
-                <ul class="list">
-                    <li id="step1">Combine milk with vinegar in a medium bowl and set aside for 5 minutes to "sour".</li>
-                    <li id="step2">Combine flour, sugar, baking powder, baking soda, and salt in a large mixing bowl. Whisk egg and butter into "soured" milk. Pour the flour mixture into the wet ingredients and whisk until lumps are gone.</li>
-                    <li id="step3">Heat a large skillet over medium heat, and coat with cooking spray. Pour 1/4 cupfuls of batter onto the skillet, and cook until bubbles appear on the surface. Flip with a spatula, and cook until browned on the other side.</li>
-                </ul>
-            </div>
-            <div class="how-to-play">
-                <h3>Game Directions</h3>
-                <ul>
-                    <li>use your keyboard direction to move around <img src="images/direction.jpg" style="width:80px;height:80px">.</li>
-                    <li>Collect the <img src="images/star.png" style="width:50px;height:80px"> to discover the ingredients and directions to cook fluffy pancakes.</li>
-                    <li>When the <img src="images/Selector.png" style="width:50px;height:80px"> appears collect it to kill some bugs and slow the other ones.</li>
-                    <li>To start Playing the game press the space key on your keyboard.</li>
-                </ul>
-            </div>
-        </div>
             <canvas id="board">
             </canvas>
         </div>
@@ -59,23 +61,24 @@
     <script src="js/engine.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
-    	//all li items are in the array in a css selector form 
-        var items = ['#milk','#vinegar','#baking-soda','#salt','#flour','#egg','#sugar','#baking-powder','#butter','#cooking-spray','#step1','#step2','#step3'];
+        //all li items are in the array in a css selector form 
+        var items = ['#milk', '#vinegar', '#baking-soda', '#salt', '#flour', '#egg', '#sugar', '#baking-powder', '#butter', '#cooking-spray', '#step1', '#step2', '#step3'];
 
-        var OnCollection = function(){
-        	//if there are element in the items array display
-        	//them then remove it from the array
-        	if(items.length > 0){
-                var element = items[Math.floor(Math.random()*items.length)];
+        var OnCollection = function() {
+            //if there are element in the items array display
+            //them then remove it from the array
+            if (items.length > 0) {
+                var element = items[Math.floor(Math.random() * items.length)];
                 var i = items.indexOf(element);
                 $(element).show();
-                items.splice(i,1);
+                items.splice(i, 1);
                 console.log(items);
-            }else{
+            } else {
                 gameState = 'win';
             }
-        }   	
+        }
     </script>
 
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-var gameState = 'void';
+var gameState = 'void',
     count = 0;
 
 // Enemies our player must avoid
@@ -63,7 +63,7 @@ var dieAndSlowEnemy = function() {
 
 //create random enemies
 var createRandomEnemies = function() {
-    var yArray = [145,230,315]
+    var yArray = [145,230,315];
     var yDirection = yArray[Math.floor(Math.random()*yArray.length)];
     var speed = 20 + 20*Math.floor(Math.random()*4);
     allEnemies.push(new Enemy(20, yDirection, speed));
@@ -79,7 +79,7 @@ var createRandomEnemies = function() {
         //rendered and updated
         allCollectables.push(slowingGem);
     }
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -160,8 +160,8 @@ var Player = function() {
 
 //updates the player position
 Player.prototype.update = function(dt) {
-    this.x * (dt);
-    this.y * (dt);
+    this.x *= (dt);
+    this.y *= (dt);
 };
 
 //draw the enemy on the canvas
@@ -234,7 +234,7 @@ var checkCollision = function(rect1, rect2) {
     }else{
         return false;
     }
-}
+};
 
 var gameReset = function(){
     if(allCollectables.length === 3){
@@ -247,12 +247,13 @@ var gameReset = function(){
     enemy3 = new Enemy(20,315,20);
     allEnemies = [enemy1,enemy2,enemy3];
     $('.list li').css('display', 'none');
-}
+};
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
+        32: 'space',
         37: 'left',
         38: 'up',
         39: 'right',

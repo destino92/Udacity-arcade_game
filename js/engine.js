@@ -167,6 +167,7 @@ var Engine = (function(global) {
          */
         switch(gameState){
             case 'void':
+                //title text
                 ctx.font = "70px Chewy";
                 ctx.fillStyle = "#faaa09";
                 ctx.fillText("Fluffy pancakes", canvas.width/2, canvas.height/2);
@@ -174,6 +175,7 @@ var Engine = (function(global) {
                 ctx.lineWidth = 4;
                 ctx.textAlign = "center";
                 ctx.strokeText("Fluffy pancakes", canvas.width/2, canvas.height/2);
+
                 player.render();
                 break;
             case 'game':
@@ -192,6 +194,7 @@ var Engine = (function(global) {
                 player.render();
                 break;
             case 'win':
+                //Ui text for winning
                 ctx.font = "60px Play";
                 ctx.fillStyle = "#faaa09";
                 ctx.fillText("Congratulations", canvas.width/2, canvas.height/2);
@@ -216,6 +219,8 @@ var Engine = (function(global) {
                     collactable.render();
                 });
                 player.render();
+
+                //UI for GameOver
                 ctx.font = "90px Play";
                 ctx.fillStyle = "#faaa09";
                 ctx.fillText("Game Over", canvas.width/2, canvas.height/2);

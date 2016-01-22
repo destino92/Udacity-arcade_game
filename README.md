@@ -19,6 +19,6 @@ WHAT IS THE GAMEPLAY
 -To win the game the player as to unlock all ingredients and cooking directions.<br />
 -If there are more than ten enemies on the board the game will be over.
 
-THE REMAINING DIRECTIONS WILL BE FIND ON THE GAME WEBSITE.
+THE REMAINING DIRECTIONS WILL BE FOUND ON THE GAME WEBSITE.
 
 Destino D.

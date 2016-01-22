@@ -13,10 +13,10 @@ page in your favorite browser.
 
 WHAT IS THE GAMEPLAY
 
--This game is about finding a recipe for coocking fluffy "yummy" pancakes.__
--The player as to move around and collect the stars while avoinding the enemies.__
--Every time that a star is collected an ingredients or cooking direction will be unlocked.__
--To win the game the player as to unlock all ingredients and cooking directions.__
+-This game is about finding a recipe for coocking fluffy "yummy" pancakes.\n
+-The player as to move around and collect the stars while avoinding the enemies.
+-Every time that a star is collected an ingredients or cooking direction will be unlocked.
+-To win the game the player as to unlock all ingredients and cooking directions.
 -If there are more than ten enemies on the board the game will be over.
 
 THE REMAINING DIRECTIONS WILL BE FIND ON THE GAME WEBSITE.

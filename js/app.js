@@ -1,7 +1,9 @@
 'use strict';
 
-var gameState = 'void',
-    count = 0;
+var app = {};
+
+app.gameState = 'void',
+    app.count = 0;
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
@@ -34,7 +36,7 @@ Enemy.prototype.update = function(dt, player) {
     //call the reset method if the enemy get out of 
     //the canvas on the right side and add 1 to count
     if (this.x > 500) {
-        count += 1;
+        app.count += 1;
         this.reset();
     }
 };
@@ -47,7 +49,7 @@ Enemy.prototype.reset = function() {
     this.y = yPosition;
     this.speed += 5;
     //create a random enemy after enemie reset method as been called 5 times
-    if (count === 5) {
+    if (app.count === 5) {
         createRandomEnemies();
     }
 };
@@ -69,12 +71,14 @@ var createRandomEnemies = function() {
     var yDirection = yArray[Math.floor(Math.random() * yArray.length)];
     var speed = 20 + 20 * Math.floor(Math.random() * 4);
     allEnemies.push(new Enemy(20, yDirection, speed));
-    count = 0;
+    app.count = 0;
 
     if (allEnemies.length === 10) {
-        gameState = 'game-over';
-        items = ['#milk', '#vinegar', '#baking-soda', '#salt', '#flour', '#egg', '#sugar', '#baking-powder', '#butter', '#cooking-spray', '#step1', '#step2', '#step3'];
-    } else if (allEnemies.length >= 5 && allCollectables.length == 2) {
+        app.gameState = 'game-over';
+        items = ['#milk', '#vinegar', '#baking-soda', '#salt', '#flour', '#egg', '#sugar', '#baking-powder', '#butter',
+            '#cooking-spray', '#step1', '#step2', '#step3'
+        ];
+    } else if (allEnemies.length >= 5 && allCollectables.length === 2) {
         //if there are more that 5 enemies and the slowingGem
         //is not included in the allCollectables array
         //add it to the allCollectables array so it can now be 
@@ -167,23 +171,23 @@ Player.prototype.render = function() {
 
 //this method allows the player to know his next direction based on an input
 Player.prototype.handleInput = function(direction) {
-    if (direction == 'up') {
+    if (direction === 'up') {
         this.y += -(this.speed);
-    } else if (direction == 'down') {
+    } else if (direction === 'down') {
         this.y += this.speed;
-    } else if (direction == 'right') {
+    } else if (direction === 'right') {
         this.x += this.speed;
-    } else if (direction == 'left') {
+    } else if (direction === 'left') {
         this.x += -(this.speed);
     }
 
-    if (direction == 'right' && this.x >= 420) {
+    if (direction === 'right' && this.x >= 420) {
         this.x = 410;
-    } else if (direction == 'left' && this.x <= -20) {
+    } else if (direction === 'left' && this.x <= -20) {
         this.x = -10;
-    } else if (direction == 'down' && this.y > 460) {
+    } else if (direction === 'down' && this.y > 460) {
         this.y -= this.speed;
-    } else if (direction == 'up' && this.y === -20) {
+    } else if (direction === 'up' && this.y === -20) {
         this.x = 200;
         this.y = 460;
     }
@@ -256,12 +260,14 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    if (gameState === 'void' && allowedKeys[e.keyCode] === 'space') {
-        gameState = 'game';
+    if (app.gameState === 'void' && allowedKeys[e.keyCode] === 'space') {
+        app.gameState = 'game';
+        $('.how-to-play').hide();
         player.reset();
-    } else if (gameState === 'game-over' && allowedKeys[e.keyCode] === 'space') {
-        gameState = 'game';
+    } else if (app.gameState === 'game-over' && allowedKeys[e.keyCode] === 'space') {
+        app.gameState = 'game';
         gameReset();
+        $('.how-to-play').show();
         player.reset();
     }
 

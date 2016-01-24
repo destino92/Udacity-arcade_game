@@ -25,7 +25,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 670;
+    canvas.height = 630;
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -89,7 +89,7 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        switch (gameState) {
+        switch (app.gameState) {
             case 'void':
                 //player.update(dt);
                 break;
@@ -164,7 +164,7 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        switch (gameState) {
+        switch (app.gameState) {
             case 'void':
                 //title text
                 ctx.font = "70px Chewy";

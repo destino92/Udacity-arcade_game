@@ -21,13 +21,13 @@ var Engine = (function(global) {
      */
     var doc = global.document,
         win = global.window,
-        canvas = doc.createElement('canvas'),
+        canvas = doc.getElementById("board"),//createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 606;
-    doc.body.appendChild(canvas);
+    canvas.height = 670;
+    //doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -91,10 +91,41 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
+        /*allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+
+        allRocks.forEach(function(rock) {
+            rock.update(dt);
+        });
+
+        allCollectables.forEach(function(collactable){
+            collactable.update(dt);
+        });
+
+        player.update();*/
+        switch(gameState){
+            case 'void':
+                player.update();
+                break;
+            case 'game':
+                allEnemies.forEach(function(enemy) {
+                    enemy.update(dt);
+                });
+
+                allRocks.forEach(function(rock) {
+                    rock.update(dt);
+                });
+
+                allCollectables.forEach(function(collactable){
+                    collactable.update(dt);
+                });
+
+                player.update();
+                break;
+            case 'game-over':
+                break; 
+        }
     }
 
     /* This function initially draws the "game level", it will then call
@@ -108,14 +139,15 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
+                'images/water-block.png',
+                'images/grass-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
                 'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/dirt-block.png',   // Row 1 of 2 of grass
+                'images/dirt-block.png'    // Row 2 of 2 of grass
             ],
-            numRows = 6,
+            numRows = 7,
             numCols = 5,
             row, col;
 
@@ -147,11 +179,87 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
+        /*allEnemies.forEach(function(enemy) {
             enemy.render();
         });
 
-        player.render();
+        allRocks.forEach(function(rock) {
+            rock.render();
+        });
+
+        allCollectables.forEach(function(collactable){
+            collactable.render();
+        });
+
+        player.render();*/
+        switch(gameState){
+            case 'void':
+                ctx.font = "70px Chewy";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Fluffy pancakes", canvas.width/2, canvas.height/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 4;
+                ctx.textAlign = "center";
+                ctx.strokeText("Fluffy pancakes", canvas.width/2, canvas.height/2);
+                player.render();
+                break;
+            case 'game':
+                allRocks.forEach(function(rock) {
+                    rock.render();
+                });
+
+                allCollectables.forEach(function(collactable){
+                    collactable.render();
+                });
+
+                allEnemies.forEach(function(enemy) {
+                    enemy.render();
+                });
+
+                player.render();
+                break;
+            case 'win':
+                ctx.font = "60px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Congratulations", canvas.width/2, canvas.height/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 3;
+                ctx.textAlign = "center";
+                ctx.strokeText("Congratulations", canvas.width/2, canvas.height/2);
+                
+                ctx.font = "30px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Now go and make those pancakes", canvas.width/2, (canvas.height+150)/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 1;
+                ctx.textAlign = "center";
+                ctx.strokeText("Now go and make those pancakes", canvas.width/2, (canvas.height+150)/2);
+                break;
+            case 'game-over':
+                allRocks.forEach(function(rock) {
+                    rock.render();
+                });
+                allCollectables.forEach(function(collactable){
+                    collactable.render();
+                });
+                player.render();
+                ctx.font = "90px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 4;
+                ctx.textAlign = "center";
+                ctx.strokeText("Game Over", canvas.width/2, canvas.height/2);
+
+                ctx.font = "35px Play";
+                ctx.fillStyle = "#faaa09";
+                ctx.fillText("Press Space Key To restart", canvas.width/2, (canvas.height+100)/2);
+                ctx.strokeStyle = '#412937';
+                ctx.lineWidth = 2;
+                ctx.textAlign = "center";
+                ctx.strokeText("Press Space Key To restart", canvas.width/2, (canvas.height+100)/2);
+                break; 
+        }
     }
 
     /* This function does nothing but it could have been a good place to
@@ -166,12 +274,24 @@ var Engine = (function(global) {
      * draw our game level. Then set init as the callback method, so that when
      * all of these images are properly loaded our game will start.
      */
+    //var 
+    //gameOver = new Sprite(img, 59, 136, 94, 19),
+    //b_ok = new Sprite(img, 119, 191, 40, 14),
+    //b_start = new Sprite(img, 159, 191, 40, 14);
+
     Resources.load([
         'images/stone-block.png',
         'images/water-block.png',
         'images/grass-block.png',
+        'images/dirt-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Star.png',
+        'images/Rock.png',
+        'images/Selector.png'
+        //gameOver,
+        //b_ok,
+        //b_start;
     ]);
     Resources.onReady(init);
 

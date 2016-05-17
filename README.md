@@ -20,5 +20,9 @@ cd Udacity-arcade_game
 ```
 2. Open the index.html file in your prefered browser.
 
+## Demo
+
+You can find a working example of this project [here](http://destino92.github.io/Udacity-arcade_game/)
+
 ## License
 The content of this repository is licensed under this <a href="http://choosealicense.com/licenses/mit/" target="_blank">LICENSE</a>
